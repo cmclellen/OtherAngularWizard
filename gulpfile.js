@@ -1,16 +1,20 @@
 var gulp = require('gulp'),
 	browserSync = require('browser-sync').create(),
-	path = require('path');
+	path = require('path'),
+	reload = browserSync.reload;
 
 var srcDir = './src',
 	buildDir = './build',
 	appDir = './app'
-	srcHtml = srcDir +  '/*.html',
-	srcJs = appDir + '/*.js';
+	srcHtml = appDir +  '/**/*.html',
+	srcJs = appDir + '/**/*.js';
 
 gulp.task('html', function() {	
-	gulp.src(srcHtml)
+	gulp.src(srcDir+'/**/*.html')
 		.pipe(gulp.dest(buildDir));
+
+	gulp.src([srcHtml])
+		.pipe(gulp.dest(buildDir + '/app'));
 });
 
 gulp.task('js', function() {
@@ -19,11 +23,6 @@ gulp.task('js', function() {
 });
 
 gulp.task('scripts', function() {
-	gulp.src(srcJs)
-		.pipe(gulp.dest(buildDir + '/app'));
-});
-
-gulp.task('watch', function() {
 	var files = [
 		'node_modules/angular/angular.js'
 	];
@@ -31,8 +30,14 @@ gulp.task('watch', function() {
 		.pipe(gulp.dest(buildDir + '/scripts'));
 });
 
+gulp.task('watch', function() {
+	gulp.watch(srcDir+'/**/*.html', ['html']);
+	gulp.watch(srcHtml, ['html']);
+	gulp.watch(srcJs, ['js']);
+});
+
 gulp.task('browser-sync', function() {
-	browserSync.init([buildDir + '/**.*'], {
+	browserSync.init([buildDir + '/**/*.*'], {
 		server: {
 			baseDir: buildDir
 		}
