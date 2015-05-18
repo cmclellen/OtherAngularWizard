@@ -6,7 +6,7 @@ var srcDir = './src',
 	buildDir = './build',
 	appDir = './app'
 	srcHtml = srcDir +  '/*.html',
-	srcJs = srcDir + '/*.js';
+	srcJs = appDir + '/*.js';
 
 gulp.task('html', function() {	
 	gulp.src(srcHtml)
@@ -15,12 +15,20 @@ gulp.task('html', function() {
 
 gulp.task('js', function() {
 	gulp.src(srcJs)
-		.pipe(gulp.dest(buildDir));
+		.pipe(gulp.dest(buildDir + '/app'));
+});
+
+gulp.task('scripts', function() {
+	gulp.src(srcJs)
+		.pipe(gulp.dest(buildDir + '/app'));
 });
 
 gulp.task('watch', function() {
-	gulp.watch([srcJs], ['js']);
-	gulp.watch([srcHtml], ['html']);
+	var files = [
+		'node_modules/angular/angular.js'
+	];
+	gulp.src(files)
+		.pipe(gulp.dest(buildDir + '/scripts'));
 });
 
 gulp.task('browser-sync', function() {
@@ -34,6 +42,7 @@ gulp.task('browser-sync', function() {
 gulp.task('default', [
 	'html',
 	'js',
+	'scripts',
 	'watch',
 	'browser-sync'
 ]);
