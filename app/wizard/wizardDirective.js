@@ -61,7 +61,9 @@ angular.module('wizard', ["ui.bootstrap", "ngAnimate"])
 						},
 						hasNext: function() {
 							var uiState = $scope.uiState;
-							var hasNext = uiState.steps.length > (uiState.currentStepNumber + 1);
+							var proposedNextStep = uiState.currentStepNumber + 1;
+							var hasNext = uiState.steps.length > proposedNextStep &&
+								$scope.getStepState(uiState.steps[proposedNextStep]) != $scope.stepStatesEnum.disabled;
 							return hasNext;
 						},
 						goToPrevious: function() {

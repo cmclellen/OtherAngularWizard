@@ -39,10 +39,9 @@ gulp.task('sass', function() {
 
 gulp.task('scripts', function() {
 	var files = [
-		'node_modules/angular/*.min.*',
-		'node_modules/bootstrap/dist/js/**/*.min.*',
-		'bower_components/angular-bootstrap/ui-bootstrap*.min.*',
-		'bower_components/angular-animate/angular-animate*.min.*',
+		bowerDir+'/angular/angular*.min.*',
+		bowerDir+'/angular-bootstrap/ui-bootstrap*.min.*',
+		bowerDir+'/angular-animate/angular-animate*.min.*',
 	];
 	gulp.src(files)
 		.pipe(gulp.dest(buildDir + '/scripts'));
