@@ -15,13 +15,10 @@
 		<hr>
 		<div class="wizard-step-container" ng-transclude></div>
 		<hr>
-		<div>
-			<span class="col-md-9"></span>
-			<ul>
-				<li class="btn btn-default previous" ng-class="{disabled: !hasPrevious()}"><a href="#" ng-click="goToPrevious()"><i class="fa fa-arrow-circle-left"></i> Previous</a></li>
-				<li class="btn btn-default next" ng-class="{disabled: !hasNext()}"><a href="#" ng-click="goToNext()">Next <i class="fa fa-arrow-circle-right"></i></a></li>
-				<li class="btn btn-default finish" ng-class=""><a href="#" ng-click="goToNext()">Finish <i class="fa"></i></a></li>
-			</ul>
+		<div class="pull-right">
+			<button class="btn btn-default previous" ng-class="{disabled: !hasPrevious()}" ng-click="goToPrevious()" ng-disabled="uiState.submitting"><i class="fa fa-arrow-circle-left"></i> Previous</button>
+			<button class="btn btn-default next" ng-class="{disabled: !hasNext()}" ng-click="goToNext()" ng-disabled="uiState.submitting">Next <i class="fa fa-arrow-circle-right"></i></button>
+			<button class="btn btn-default finish" ng-hide="!isSubmittable()" ng-click="onSubmitClicked()" ng-disabled="uiState.submitting">Finish </i><i class="fa fa-circle-o-notch fa-spin" ng-show="uiState.submitting"></i></button>
 		</div>
 	</div>
 </div>

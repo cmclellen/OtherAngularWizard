@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app="myapp">
 <head>
 	<meta charset='utf-8'>
 	<title>Wizard</title>
@@ -8,9 +8,9 @@
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/site.css">
 </head>
-<body ng-app="myapp" class="container">
+<body class="container" ng-controller="HelloController">
 
-	<wizard current-step-number="uiState.currentStepNumber">
+	<wizard current-step-number="uiState.currentStepNumber" submit="onSubmit()">
 		<wizard-step title="Settings" title-class="fa fa-cog">
 		<div>STEP1</div>
 		<input type="text" ng-model="requiredText" required placeholder="Required Field" />

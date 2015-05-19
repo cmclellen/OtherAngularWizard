@@ -1,12 +1,12 @@
 angular.module('wizard', ["ui.bootstrap", "ngAnimate"])
-	.directive('wizard', function() {
-		"use strict";
-
+	.directive('wizard', ['$q', function($q) {
+		
 		return {
 				restrict: 'E',
 				transclude: true,
 				scope: {
-					currentStepNumber: '='
+					currentStepNumber: '=',
+					submit: '&'
 				},
 				templateUrl: 'app/wizard/wizardTemplate.html',
 				controller: function($scope) {
@@ -23,7 +23,8 @@ angular.module('wizard', ["ui.bootstrap", "ngAnimate"])
 
 						uiState: {
 							steps: [],
-							currentStepNumber: $scope.currentStepNumber || 0
+							currentStepNumber: $scope.currentStepNumber || 0,
+							submitting: false
 						},
 
 						stepStatesEnum: {
@@ -99,6 +100,21 @@ angular.module('wizard', ["ui.bootstrap", "ngAnimate"])
 							if(stepNumber >= 0) {
 								$scope.goToStep(stepNumber);
 							}
+						},
+						isSubmittable: function() {
+							var uiState = $scope.uiState;
+							var isSubmittable = uiState.steps.every(function(step) {
+								var result = $scope.getStepState(step) == $scope.stepStatesEnum.complete;
+								return result;
+							});
+							return isSubmittable;
+						},
+						onSubmitClicked: function() {
+							var uiState = $scope.uiState;
+							uiState.submitting = true;
+							$q.when($scope.submit()).then(function() {
+								uiState.submitting = false;
+							});
 						}
 					});
 
@@ -121,7 +137,8 @@ angular.module('wizard', ["ui.bootstrap", "ngAnimate"])
 				}
 		};
 
-	}).directive('wizardStep', function() {
+	}]).directive('wizardStep', [function() {
+
 		return {
 			require: '^wizard',
 			restrict: 'E',
@@ -144,4 +161,4 @@ angular.module('wizard', ["ui.bootstrap", "ngAnimate"])
         });
 			}
 		};
-	});
+	}]);
