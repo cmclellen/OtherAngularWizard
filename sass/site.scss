@@ -7,12 +7,22 @@
       cursor: pointer;             
   		-webkit-transition: all 0.3s ease;
 
+      .badge{
+        color: white;
+        background-color: #505050;
+      }
+
       &.selected{
           color: white;
           background-color: #505050;
           cursor: default; 
+
+          .badge{
+            color: #505050;
+            background-color: white;
+          }
       }
-      
+
       &.disabled{
           color:gray;
           cursor: not-allowed;
