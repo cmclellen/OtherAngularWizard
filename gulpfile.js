@@ -30,6 +30,20 @@ gulp.task('scripts', function() {
 		.pipe(gulp.dest(buildDir + '/scripts'));
 });
 
+gulp.task('styles', function() {
+	var files = [
+		'node_modules/bootstrap/dist/**/*.*'
+	];
+	gulp.src(files)
+		.pipe(gulp.dest(buildDir + '/styles/bootstrap'));
+
+	files = [
+		'node_modules/font-awesome/**/*.*'
+	];
+	gulp.src(files)
+		.pipe(gulp.dest(buildDir + '/styles/font-awesome'));
+});
+
 gulp.task('watch', function() {
 	gulp.watch(srcDir+'/**/*.html', ['html']);
 	gulp.watch(srcHtml, ['html']);
@@ -48,6 +62,7 @@ gulp.task('default', [
 	'html',
 	'js',
 	'scripts',
+	'styles',
 	'watch',
 	'browser-sync'
 ]);

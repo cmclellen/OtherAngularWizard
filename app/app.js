@@ -3,5 +3,9 @@
 angular.module('myapp', [])
 	.controller('HelloController', function($scope) {
 
-			$scope.name = 'its working';
+		angular.extend($scope, {
+			uiState: {
+				currentStepNumber: undefined,
+			}
+		});
 	});
