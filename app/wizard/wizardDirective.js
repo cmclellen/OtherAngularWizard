@@ -1,4 +1,4 @@
-angular.module('myapp')
+angular.module('wizard', ["ui.bootstrap", "ngAnimate"])
 	.directive('wizard', function() {
 		"use strict";
 

@@ -1,6 +1,6 @@
 "use strict"
 
-angular.module('myapp', [])
+angular.module('myapp', ["wizard"])
 	.controller('HelloController', function($scope) {
 
 		angular.extend($scope, {

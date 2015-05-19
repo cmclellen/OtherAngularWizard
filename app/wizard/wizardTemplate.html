@@ -1,9 +1,9 @@
-<div class="row">
+<div class="row wizard-container">
 	<div class="wizard-main">
 		<ul class="pager">
 			<li class="previous" ng-class="{disabled: !hasPrevious()}"><a href="#" ng-click="goToPrevious()"><i class="fa fa-arrow-circle-left"></i> Previous</a></li>
-			<li ng-repeat="step in steps">
-				<i class="fa fa-circle-o"></i>
+			<li ng-repeat="step in uiState.steps">
+				<i class="fa" ng-class="{'fa-circle-o disabled': getStepState(step) == stepStatesEnum.disabled, 'fa-circle': getStepState(step) == stepStatesEnum.complete, 'fa-circle-o': getStepState(step) == stepStatesEnum.ready, selected: getCurrentStep() == step}" tooltip="{{step.title}}"></i>
 			</li>
 			<li class="next" ng-class="{disabled: !hasNext()}"><a href="#" ng-click="goToNext()">Next <i class="fa fa-arrow-circle-right"></i></a></li>
 		</ul>

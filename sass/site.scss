@@ -1,0 +1,20 @@
+.wizard-container {
+  background-color: #e7e7e7;
+
+  .wizard-main{ 
+
+  	.pager i{
+  		-webkit-transition: all 0.3s ease;
+
+            &.selected{
+                color: #38a7e2;
+                -webkit-transform: translateY(-3px);
+            }
+            
+            &.disabled{
+                color:gray;
+                cursor: not-allowed;
+            }
+  	}
+  }
+}
