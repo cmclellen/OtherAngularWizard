@@ -11,21 +11,16 @@
 <body ng-app="myapp" class="container">
 
 	<wizard current-step-number="uiState.currentStepNumber">
-		<wizard-step title="step 1">
+		<wizard-step title="Settings" title-class="fa fa-cog">
 		<div>STEP1</div>
 		<input type="text" ng-model="requiredText" required placeholder="Required Field" />
 		</wizard-step>
-		<wizard-step title="step 2" required-step-number="0">
+		<wizard-step title="Map Columns" title-class="fa fa-random" required-step-number="0">
 		<div>STEP2</div>
 		<input type="text" ng-model="requiredText" required placeholder="Required Field" />
 		</wizard-step>
-		<wizard-step title="step 3">
+		<wizard-step title="Import" title-class="fa fa-download">		
 		<div>STEP3</div>
-		
-		</wizard-step>
-		<wizard-step title="step 4">
-		<div>STEP4</div>
-		<input type="text" ng-model="requiredText" required placeholder="Required Field" />
 		</wizard-step>
 	</wizard>
 

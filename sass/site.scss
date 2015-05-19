@@ -1,20 +1,23 @@
 .wizard-container {
-  background-color: #e7e7e7;
+  background-color: transparent;
 
   .wizard-main{ 
 
-  	.pager i{
+  	.pager span {
+      cursor: pointer;             
   		-webkit-transition: all 0.3s ease;
 
-            &.selected{
-                color: #38a7e2;
-                -webkit-transform: translateY(-3px);
-            }
-            
-            &.disabled{
-                color:gray;
-                cursor: not-allowed;
-            }
+      &.selected{
+          color: white;
+          background-color: #505050;
+          cursor: default; 
+      }
+      
+      &.disabled{
+          color:gray;
+          cursor: not-allowed;
+      }
+
   	}
   }
 }

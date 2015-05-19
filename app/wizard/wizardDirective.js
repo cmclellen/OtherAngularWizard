@@ -127,7 +127,8 @@ angular.module('wizard', ["ui.bootstrap", "ngAnimate"])
 			restrict: 'E',
 			transclude: true,
 			scope: {
-				title: '@',            
+				title: '@',
+				titleClass: '@',
 				requiredStepNumber: '@',
 			},
 			templateUrl: 'app/wizard/wizardStepTemplate.html',

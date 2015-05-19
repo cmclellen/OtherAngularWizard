@@ -1,15 +1,27 @@
 <div class="row wizard-container">
 	<progressbar value="getProgressPercentage()" type="{{getProgressPercentage() == 100 ? 'success' : 'default'}}"></progressbar>
 	<div class="wizard-main">
-		<ul class="pager">
-			<li class="previous" ng-class="{disabled: !hasPrevious()}"><a href="#" ng-click="goToPrevious()"><i class="fa fa-arrow-circle-left"></i> Previous</a></li>
+		<ul class="pager">			
 			<li ng-repeat="step in uiState.steps">
-				<i class="fa" 
-					ng-class="{'fa-circle-o disabled': getStepState(step) == stepStatesEnum.disabled, 'fa-circle': getStepState(step) == stepStatesEnum.complete, 'fa-circle-o': getStepState(step) == stepStatesEnum.ready, selected: getCurrentStep() == step}" tooltip="{{step.title}}"
-					ng-click="goToStepByReference(step)"></i>
-			</li>
-			<li class="next" ng-class="{disabled: !hasNext()}"><a href="#" ng-click="goToNext()">Next <i class="fa fa-arrow-circle-right"></i></a></li>
+				
+					<span
+						ng-click="goToStepByReference(step)" tooltip="{{step.title}}" 
+						ng-class="{'disabled': getStepState(step) == stepStatesEnum.disabled, '': getStepState(step) == stepStatesEnum.complete, '': getStepState(step) == stepStatesEnum.ready, selected: getCurrentStep() == step}"><i class="{{step.titleClass}}"></i> {{step.title}}
+					</span>
+					
+				
+			</li>			
 		</ul>
+		<hr>
 		<div class="wizard-step-container" ng-transclude></div>
+		<hr>
+		<div>
+			<span class="col-md-9"></span>
+			<ul>
+				<li class="btn btn-default previous" ng-class="{disabled: !hasPrevious()}"><a href="#" ng-click="goToPrevious()"><i class="fa fa-arrow-circle-left"></i> Previous</a></li>
+				<li class="btn btn-default next" ng-class="{disabled: !hasNext()}"><a href="#" ng-click="goToNext()">Next <i class="fa fa-arrow-circle-right"></i></a></li>
+				<li class="btn btn-default finish" ng-class=""><a href="#" ng-click="goToNext()">Finish <i class="fa"></i></a></li>
+			</ul>
+		</div>
 	</div>
 </div>
