@@ -11,11 +11,21 @@
 <body ng-app="myapp" class="container">
 
 	<wizard current-step-number="uiState.currentStepNumber">
-		<wizard-step title="step1">
+		<wizard-step title="step 1">
 		<div>STEP1</div>
+		<input type="text" ng-model="requiredText" required placeholder="Required Field" />
 		</wizard-step>
-		<wizard-step title="step2">
+		<wizard-step title="step 2" required-step-number="0">
 		<div>STEP2</div>
+		<input type="text" ng-model="requiredText" required placeholder="Required Field" />
+		</wizard-step>
+		<wizard-step title="step 3">
+		<div>STEP3</div>
+		
+		</wizard-step>
+		<wizard-step title="step 4">
+		<div>STEP4</div>
+		<input type="text" ng-model="requiredText" required placeholder="Required Field" />
 		</wizard-step>
 	</wizard>
 

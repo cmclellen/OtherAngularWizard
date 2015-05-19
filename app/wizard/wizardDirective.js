@@ -15,7 +15,8 @@ angular.module('wizard', ["ui.bootstrap", "ngAnimate"])
 
 					function isValidStepNumber(stepNumber) {
 						var uiState = $scope.uiState;
-						return stepNumber < uiState.steps.length && stepNumber >= 0;
+						var isValidStepNumber = stepNumber < uiState.steps.length && stepNumber >= 0;
+						return isValidStepNumber;
 					}
 
 					angular.extend($scope, {
@@ -76,15 +77,25 @@ angular.module('wizard', ["ui.bootstrap", "ngAnimate"])
 							var completeSteps = uiState.steps.filter(function(step) {
 								return $scope.getStepState(step) == $scope.stepStatesEnum.complete;
 							});
-							return (completeSteps / uiState.steps.length) * 100;
+							var progressPercentage = (completeSteps.length / uiState.steps.length) * 100;
+							return progressPercentage;
 						},
 						getStepState: function(step) {
-							if(step.requiredStepNumber && isValidStepNumber(step.requiredStepNumber) && $scope.getStepState(step) != $scope.stepStatesEnum.complete) {
+							var uiState = $scope.uiState;
+							if(step.requiredStepNumber && isValidStepNumber(step.requiredStepNumber) &&
+								$scope.getStepState(uiState.steps[step.requiredStepNumber]) != $scope.stepStatesEnum.complete) {
 								return $scope.stepStatesEnum.disabled;
 							} else if(step.stepForm.$valid) {
 								return $scope.stepStatesEnum.complete;
 							} else {
 								return $scope.stepStatesEnum.ready;
+							}
+						},
+						goToStepByReference: function(step) {
+							var uiState = $scope.uiState;
+							var stepNumber = uiState.steps.indexOf(step);
+							if(stepNumber >= 0) {
+								$scope.goToStep(stepNumber);
 							}
 						}
 					});
