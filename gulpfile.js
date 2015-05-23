@@ -4,7 +4,8 @@ var gulp = require('gulp'),
 	reload = browserSync.reload,
 	bower = require('gulp-bower'),
 	notify = require("gulp-notify"),
-	sass = require('gulp-sass');
+	sass = require('gulp-sass'),
+	ngHtml2Js = require("gulp-ng-html2js");
 
 var srcDir = './src',
 	buildDir = './build',
@@ -19,9 +20,6 @@ var srcDir = './src',
 gulp.task('html', function() {	
 	gulp.src([srcDir+'/**/*.html', imagesDir+'/*.*'])
 		.pipe(gulp.dest(buildDir));
-
-	gulp.src([srcHtml])
-		.pipe(gulp.dest(buildDir + '/app'));
 });
 
 gulp.task('js', function() {
@@ -82,6 +80,15 @@ gulp.task('bower', function() {
         .pipe(gulp.dest(config.bowerDir))
 });
 
+gulp.task('templates', function() {
+	gulp.src("app/**/*.html")
+    .pipe(ngHtml2Js({
+        moduleName: "templates",
+        prefix: "app/"
+    }))
+    .pipe(gulp.dest("./build/templates"));
+});
+
 gulp.task('default', [
 	'html',
 	'js',
@@ -89,5 +96,6 @@ gulp.task('default', [
 	'scripts',
 	'styles',
 	'watch',
+	'templates',
 	'browser-sync'
 ]);

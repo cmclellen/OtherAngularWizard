@@ -1,6 +1,6 @@
 "use strict"
 
-angular.module('myapp', ["wizard"])
+angular.module('myapp', ["wizard", "templates"])
 	.controller('HelloController', ['$scope', '$timeout','$q', function($scope, $timeout, $q) {
 
 		angular.extend($scope, {
