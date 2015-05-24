@@ -41,6 +41,7 @@ gulp.task('templates', function() {
 
 gulp.task('js', function() {
 	var files = [
+		appDir + '/templates/**/*.js',
 		appDir + '/app.js',
 		appDir + '/**/*.js'
 	];
