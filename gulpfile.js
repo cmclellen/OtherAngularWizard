@@ -5,7 +5,8 @@ var gulp = require('gulp'),
 	bower = require('gulp-bower'),
 	notify = require("gulp-notify"),
 	sass = require('gulp-sass'),
-	ngHtml2Js = require("gulp-ng-html2js");
+	ngHtml2Js = require("gulp-ng-html2js"),
+	install = require("gulp-install");
 
 var srcDir = './src',
 	buildDir = './build',
@@ -87,6 +88,11 @@ gulp.task('templates', function() {
         prefix: "app/"
     }))
     .pipe(gulp.dest("./build/templates"));
+});
+
+gulp.task('install', function() {
+	gulp.src(['./bower.json', './package.json'])
+	  .pipe(install());	
 });
 
 gulp.task('default', [
