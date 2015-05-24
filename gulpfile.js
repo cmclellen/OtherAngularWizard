@@ -6,7 +6,9 @@ var gulp = require('gulp'),
 	notify = require("gulp-notify"),
 	sass = require('gulp-sass'),
 	ngHtml2Js = require("gulp-ng-html2js"),
-	install = require("gulp-install");
+	install = require("gulp-install"),
+	clean = require('gulp-clean'),
+	concat = require('gulp-concat');
 
 var srcDir = './src',
 	buildDir = './build',
@@ -18,13 +20,32 @@ var srcDir = './src',
 	srcSass = './sass/**/*.scss',
 	bowerDir = './bower_components';
 
+gulp.task('clean', function () {  
+  return gulp.src(buildDir, {read: false})
+    .pipe(clean());
+});
+
 gulp.task('html', function() {	
 	gulp.src([srcDir+'/**/*.html', imagesDir+'/*.*'])
 		.pipe(gulp.dest(buildDir));
 });
 
+gulp.task('templates', function() {
+	gulp.src("app/**/*.html")
+    .pipe(ngHtml2Js({
+        moduleName: "templates",
+        prefix: "app/"
+    }))
+    .pipe(gulp.dest("./app/templates"));
+});
+
 gulp.task('js', function() {
-	gulp.src(srcJs)
+	var files = [
+		appDir + '/app.js',
+		appDir + '/**/*.js'
+	];
+	gulp.src(files)
+		.pipe(concat('all.js'))
 		.pipe(gulp.dest(buildDir + '/app'));
 });
 
@@ -81,27 +102,19 @@ gulp.task('bower', function() {
         .pipe(gulp.dest(config.bowerDir))
 });
 
-gulp.task('templates', function() {
-	gulp.src("app/**/*.html")
-    .pipe(ngHtml2Js({
-        moduleName: "templates",
-        prefix: "app/"
-    }))
-    .pipe(gulp.dest("./build/templates"));
-});
-
 gulp.task('install', function() {
 	gulp.src(['./bower.json', './package.json'])
 	  .pipe(install());	
 });
 
 gulp.task('default', [
-	'html',
+	'clean',
+	'templates',
 	'js',
+	'html',
 	'sass',
 	'scripts',
 	'styles',
-	'watch',
-	'templates',
+	'watch',	
 	'browser-sync'
 ]);
